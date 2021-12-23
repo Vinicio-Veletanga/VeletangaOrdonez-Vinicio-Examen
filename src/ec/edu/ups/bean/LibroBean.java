@@ -9,7 +9,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
 
+import ec.edu.ups.ejb.AutorFacade;
+import ec.edu.ups.ejb.CapituloFacade;
 import ec.edu.ups.ejb.LibroFacade;
+import ec.edu.ups.entidad.Capitulo;
 import ec.edu.ups.entidad.Libro; 
 
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
@@ -20,6 +23,8 @@ public class LibroBean implements Serializable {
 
 	@EJB
 	private LibroFacade ejbLibroFacade;
+	
+	
 	private String Nombre;
 	private String ISBN;
 	private int numPaginas;
@@ -98,5 +103,8 @@ public class LibroBean implements Serializable {
 		c.setEditable(false);
 		return null;
 	}
+	
+	
+	
 
 }

@@ -4,6 +4,20 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> </meta>
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png"> </link>
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png"> </link>
+   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" > </link>
+  <!-- Nucleo Icons -->
+  <link href="./assets/css/nucleo-icons.css" rel="stylesheet" > </link>
+  <link href="./assets/css/nucleo-svg.css" rel="stylesheet" > </link>
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"> </link>
+  <!-- CSS Files -->
+  <link id="pagestyle" href="./assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" > </link>
+  
 	<title>Libros</title>
 	<style>
 		.tabla {
@@ -30,55 +44,113 @@
 		}
 	</style>
 </h:head>
-<h:body>
-	<h3>Gestión de Libros</h3>
+<h:body class="g-sidenav-show  bg-gray-200">
+	
+	<h3 class="nav-link text-white active bg-gradient-primary">Gestión de Libros</h3>
+	<div class="card my-4">
 	<h:form>
-		<h:dataTable value="#{libroBean.list}" var="c" styleClass="tabla"
+		<h:dataTable value="#{capituloBean.libros}" var="li" styleClass="tabla"
 			headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
 			<h:column>
-				<f:facet name="header">Codigo</f:facet>#{c.codigo}</h:column>
+				<f:facet name="header">Codigo</f:facet>#{li.codigo}</h:column>
 			<h:column>
 				<f:facet name="header">Nombre</f:facet>
-				<h:inputText value="#{c.nombre}" size="10"
-					rendered="#{c.editable}" />
-				<h:outputText value="#{c.nombre}" rendered="#{not c.editable}" />
+				<h:inputText value="#{li.nombre}" size="10"
+					rendered="#{li.editable}" />
+				<h:outputText value="#{li.nombre}" rendered="#{not li.editable}" />
 			</h:column>	
 			<h:column>
 				<f:facet name="header">ISBN</f:facet>
-				<h:inputText value="#{c.ISBN}" size="10"
-					rendered="#{c.editable}" />
-				<h:outputText value="#{c.ISBN}" rendered="#{not c.editable}" />
+				<h:inputText value="#{li.ISBN}" size="10"
+					rendered="#{li.editable}" />
+				<h:outputText value="#{li.ISBN}" rendered="#{not li.editable}" />
 			</h:column>	
 			<h:column>
 				<f:facet name="header">Numero Paginas</f:facet>
-				<h:inputText value="#{c.numPaginas}" size="10"
-					rendered="#{c.editable}" />
-				<h:outputText value="#{c.numPaginas}" rendered="#{not c.editable}" />
+				<h:inputText value="#{li.numPaginas}" size="10"
+					rendered="#{li.editable}" />
+				<h:outputText value="#{li.numPaginas}" rendered="#{not li.editable}" />
 			</h:column>
-			 
+			
 			<h:column>
 				<f:facet name="header">Accion</f:facet>
-				<h:commandLink value="Delete" action="#{libroBean.delete(c)}" />
+				<h:commandLink value="Delete" action="#{capituloBean.delete(li)}" />
 			</h:column>
 			<h:column>
 				<f:facet name="header">Accion</f:facet>
-				<h:commandLink value="Edit" action="#{libroBean.edit(c)}"
-					rendered="#{not c.editable}" />
-				<h:commandLink value="Save" action="#{libroBean.save(c)}"
-					rendered="#{c.editable}" />
+				<h:commandLink value="Edit" action="#{capituloBean.edit(li)}"
+					rendered="#{not li.editable}" />
+				<h:commandLink value="Save" action="#{capituloBean.save(li)}"
+					rendered="#{li.editable}" />
 			</h:column>
 		</h:dataTable>
-		<ul>
-			<li>Nombre:<h:inputText size="10" value="#{libroBean.nombre}"/></li>
+		<ul class="input-group input-group-outline mb-3">
+			<li>Nombre:<h:inputText size="10" value="#{capituloBean.nombre}"/></li>
 		</ul>
-		<ul>
-			<li>ISBN:<h:inputText size="10" value="#{libroBean.ISBN}"/></li>
+		<ul class="input-group input-group-outline mb-3">
+			<li>ISBN:<h:inputText size="10" value="#{capituloBean.ISBN}"/></li>
 		</ul>
-		<ul>
-			<li>Numeros Pagina:<h:inputText size="10" value="#{libroBean.numPaginas}"/></li>
+		<ul class="input-group input-group-outline mb-3">
+			<li>Numeros Pagina:<h:inputText size="10" value="#{capituloBean.numPaginas}"/></li>
 		</ul>
 		
-		<h:commandButton value="Add" action="#{libroBean.add}" />
+		<h:commandButton id="al" value="Agregar Libro" action="#{capituloBean.addL}">
+		 </h:commandButton>
+	</h:form>>
+	</div>
+	<h:form class="table align-items-center mb-0" id="capi" >
+	<h3 class="nav-link text-white active bg-gradient-primary">Gestion Capitulo</h3>
+		<h:dataTable class="table align-items-center mb-0" value="#{capituloBean.list}" var="ca" styleClass="tabla"
+			headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+			<h:column class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+				<f:facet name="header">Codigo</f:facet>#{ca.codigo}
+			</h:column>
+			
+			 <h:column class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+				<f:facet name="header">Numero</f:facet>
+				<h:inputText class="form-control" value="#{ca.numero}" 
+					rendered="#{ca.editable}" />
+				<h:outputText value="#{ca.numero}" rendered="#{not ca.editable}" />
+			</h:column>	
+			<h:column class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+				<f:facet name="header">Titulo</f:facet>
+				<h:inputText class="form-control" value="#{ca.titulo}" size="10"
+					rendered="#{ca.editable}" />
+				<h:outputText value="#{ca.titulo}" rendered="#{not ca.editable}" />
+			</h:column>	
+			<h:column class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+				<f:facet name="header">Autor</f:facet>
+				<h:inputText class="form-control" value="#{ca.autor.nombre}" size="10"
+					rendered="#{ca.editable}" />
+				<h:outputText value="#{ca.autor.nombre}" rendered="#{not ca.editable}" />
+			</h:column>	
+		</h:dataTable>
+		<ul class="input-group input-group-outline mb-3">
+			<li>Numero:<h:inputText  size="10" value="#{capituloBean.numero}"/></li>
+		</ul>
+		<ul class="input-group input-group-outline mb-3">
+			<li>Titulo:<h:inputText  size="10" value="#{capituloBean.titulo}"/></li>
+		</ul> 
+		 
+	<h3 class="font-weight-bolder mb-0">Ingrese codigo Autor:</h3>
+	
+	<h:inputText id="codigoa" value="#{capituloBean.codigoa}" />
+	<h:commandButton action="#{capituloBean.finID()}" value="Buscar" >
+		<f:ajax execute="codigoa" event="click" render="nom nac"/>
+	</h:commandButton>
+	
+	<h3>Nombre:</h3>
+	<h:outputText class="text-center mb-0" id="nom" value="#{capituloBean.nombrea}"  />
+	<h3>Nacionalidad:</h3>
+	<h:outputText class="text-center mb-0" id="nac" value="#{capituloBean.nacionalidad}"  />
+	
+	<br/>
+	<h:commandButton value="Agregar Capitulo" action="#{capituloBean.add}" />
 	</h:form>
+	<a class="nav-link text-white active bg-gradient-primary" href="index.html">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+            </div>
+            <span class="nav-link-text ms-1">Volver</span>
+          </a>
 </h:body>
 </html>

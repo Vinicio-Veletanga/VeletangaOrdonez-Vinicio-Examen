@@ -21,10 +21,15 @@ public class Capitulo implements Serializable {
 	private int numero;
 	private String titulo;
 	@ManyToOne
-	private Libro capitulo;
+	private Libro libro;
 	
-	@OneToOne(cascade=CascadeType.ALL,mappedBy="autor")
+	
+	@OneToOne
+	@JoinColumn
 	private Autor autor;
+	
+	@Transient
+	private boolean editable;
 	
 	public Capitulo() {
 	}
@@ -59,20 +64,31 @@ public class Capitulo implements Serializable {
 		this.titulo = titulo;
 	}
 
-	public Libro getCapitulo() {
-		return capitulo;
-	}
-
-	public void setCapitulo(Libro capitulo) {
-		this.capitulo = capitulo;
-	}
+ 
 
 	public Autor getAutor() {
 		return autor;
 	}
+	
 
 	public void setAutor(Autor autor) {
 		this.autor = autor;
+	}
+
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+
+	public Libro getLibro() {
+		return libro;
+	}
+
+	public void setLibro(Libro libro) {
+		this.libro = libro;
 	}
 
 	@Override
@@ -80,8 +96,9 @@ public class Capitulo implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((autor == null) ? 0 : autor.hashCode());
-		result = prime * result + ((capitulo == null) ? 0 : capitulo.hashCode());
 		result = prime * result + codigo;
+		result = prime * result + (editable ? 1231 : 1237);
+		result = prime * result + ((libro == null) ? 0 : libro.hashCode());
 		result = prime * result + numero;
 		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
@@ -101,12 +118,14 @@ public class Capitulo implements Serializable {
 				return false;
 		} else if (!autor.equals(other.autor))
 			return false;
-		if (capitulo == null) {
-			if (other.capitulo != null)
-				return false;
-		} else if (!capitulo.equals(other.capitulo))
-			return false;
 		if (codigo != other.codigo)
+			return false;
+		if (editable != other.editable)
+			return false;
+		if (libro == null) {
+			if (other.libro != null)
+				return false;
+		} else if (!libro.equals(other.libro))
 			return false;
 		if (numero != other.numero)
 			return false;
@@ -118,7 +137,13 @@ public class Capitulo implements Serializable {
 		return true;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Capitulo [codigo=" + codigo + ", numero=" + numero + ", titulo=" + titulo + ", libro=" + libro
+				+ ", autor=" + autor + ", editable=" + editable + "]";
+	}
+
+	 
 	
 	
    

@@ -21,18 +21,26 @@ public class Autor implements Serializable {
 	
 	private String nombre;
 	private String Nacionalidad;
+	@Transient
+	private boolean editable;
 	
-	@OneToOne
+	@OneToOne 
 	@JoinColumn
-	private Capitulo autor;
+	private Capitulo capitulo;
 	public Autor() {
 
 	}
-	public Autor(int codigo, String nombre, String nacionalidad) {
+	public Autor( String nombre, String nacionalidad) {
 		super();
-		this.codigo = codigo;
 		this.nombre = nombre;
 		Nacionalidad = nacionalidad;
+	}
+	
+	public boolean isEditable() {
+		return editable;
+	}
+	public void setEditable(boolean editable) {
+		this.editable = editable;
 	}
 	public int getCodigo() {
 		return codigo;
@@ -52,19 +60,20 @@ public class Autor implements Serializable {
 	public void setNacionalidad(String nacionalidad) {
 		Nacionalidad = nacionalidad;
 	}
-	public Capitulo getAutor() {
-		return autor;
+	public Capitulo getCapitulo() {
+		return capitulo;
 	}
-	public void setAutor(Capitulo autor) {
-		this.autor = autor;
+	public void setCapitulo(Capitulo capitulo) {
+		this.capitulo = capitulo;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((Nacionalidad == null) ? 0 : Nacionalidad.hashCode());
-		result = prime * result + ((autor == null) ? 0 : autor.hashCode());
+		result = prime * result + ((capitulo == null) ? 0 : capitulo.hashCode());
 		result = prime * result + codigo;
+		result = prime * result + (editable ? 1231 : 1237);
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
 	}
@@ -82,12 +91,14 @@ public class Autor implements Serializable {
 				return false;
 		} else if (!Nacionalidad.equals(other.Nacionalidad))
 			return false;
-		if (autor == null) {
-			if (other.autor != null)
+		if (capitulo == null) {
+			if (other.capitulo != null)
 				return false;
-		} else if (!autor.equals(other.autor))
+		} else if (!capitulo.equals(other.capitulo))
 			return false;
 		if (codigo != other.codigo)
+			return false;
+		if (editable != other.editable)
 			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
@@ -96,6 +107,14 @@ public class Autor implements Serializable {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "Autor [codigo=" + codigo + ", nombre=" + nombre + ", Nacionalidad=" + Nacionalidad + ", editable="
+				+ editable + ", capitulo=" + capitulo + "]";
+	}
+  
+	
+
 	
    
 }

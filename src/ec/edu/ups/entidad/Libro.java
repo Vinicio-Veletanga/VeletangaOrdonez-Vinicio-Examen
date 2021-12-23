@@ -28,7 +28,7 @@ public class Libro implements Serializable {
 	private boolean editable;
 	
 	//RELACION ONE MUCHOS personas-doctores
-	@OneToMany(mappedBy ="capitulo")
+	@OneToMany(cascade= CascadeType.ALL,mappedBy ="libro")
 	private List<Capitulo> capitulos;
 
 	public Libro() { 

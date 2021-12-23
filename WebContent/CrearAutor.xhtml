@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> </meta>
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png"> </link>
+  <link rel="icon" type="image/png" href="./assets/img/favicon.png"> </link>
+   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" > </link>
+  <!-- Nucleo Icons -->
+  <link href="./assets/css/nucleo-icons.css" rel="stylesheet" > </link>
+  <link href="./assets/css/nucleo-svg.css" rel="stylesheet" > </link>
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"> </link>
+  <!-- CSS Files -->
+  <link id="pagestyle" href="./assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" > </link>
+  
+	<title>Libros</title>
+	<style>
+		.tabla {
+			border-collapse: collapse;
+		}
+		
+		.cabeceraTabla {
+			text-align: center;
+			background: none repeat scroll 0 0 #E5E5E5;
+			border-bottom: 1px solid #BBBBBB;
+			padding: 8px;
+		}
+		
+		.filaPar {
+			text-align: center;
+			background: none repeat scroll 0 0 #FFFFFFF;
+			border-top: 1px solid #BBBBBB;
+		}
+		
+		.filaImpar {
+			text-align: center;
+			background: none repeat scroll 0 0 #F9F9F9;
+			border-top: 1px solid #BBBBBB;
+		}
+	</style>
+</h:head>
+<h:body class="g-sidenav-show  bg-gray-200">
+
+
+	<h3 class="nav-link text-white active bg-gradient-primary">Gestión de Autores</h3>
+	<h:form class="table align-items-center mb-0">
+		<h:dataTable class="table align-items-center mb-0" value="#{autorBean.list}" var="c" styleClass="tabla"
+			headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+			<h:column class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+				<f:facet name="header">Codigo</f:facet>#{c.codigo}</h:column>
+			<h:column class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+				<f:facet name="header">Nombre</f:facet>
+				<h:inputText value="#{c.nombre}" size="10"
+					rendered="#{c.editable}" />
+				<h:outputText value="#{c.nombre}" rendered="#{not c.editable}" />
+			</h:column>	
+			
+			<h:column class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" >
+				<f:facet name="header">Nacionalidad</f:facet>
+				<h:inputText value="#{c.nacionalidad}" size="10"
+					rendered="#{c.editable}" />
+				<h:outputText value="#{c.nacionalidad}" rendered="#{not c.editable}" />
+			</h:column>
+			<h:column class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+				<f:facet name="header">Accion</f:facet>
+				<h:commandLink value="Delete" action="#{autorBean.delete(c)}" />
+			</h:column>
+			<h:column class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" >
+				<f:facet name="header">Accion</f:facet>
+				<h:commandLink value="Edit" action="#{autorBean.edit(c)}"
+					rendered="#{not c.editable}" />
+				<h:commandLink value="Save" action="#{autorBean.save(c)}"
+					rendered="#{c.editable}" />
+			</h:column>
+		</h:dataTable>
+		<ul>
+			<li>Nombre Autor:<h:inputText size="10" value="#{autorBean.nombre}"/></li>
+		</ul>
+		<ul>
+		<li>Nacionalidad:
+		<h:selectOneMenu id="nacio" value="#{autorBean.nacionalidad}">
+			<f:selectItems value="#{autorBean.nacionalidades}"/>
+		</h:selectOneMenu>
+		</li>
+		</ul>
+		
+		<h:commandButton value="Add" action="#{autorBean.add}" />
+		
+		<a class="nav-link text-white active bg-gradient-primary" href="index.html">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+            </div>
+            <span class="nav-link-text ms-1">Volver</span>
+          </a>
+	</h:form>
+	
+</h:body>
+</html>
